@@ -52,14 +52,9 @@ class Bot {
 
         //BUILDS INFORMATION SENT TO GROUPME
         const body = {
-            bot_id: botId,
-            text: message,
-            attachments: [{
-                type: "mentions",
-                user_ids: "31154730"
-            }]
+            bot_id: "a77921fc68936cf5c8fa6e58a3",
+            text: "test",
         };
-        console.log(users);
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {
