@@ -59,7 +59,7 @@ class Bot {
             text: "Connecting your call",
             attachments: [{
                 type: "mentions",
-                user_ids: [users.toString()]
+                user_ids: ["33073287","26997134","29962743","31154730","48138508"]
             }]
         };
         console.log(`${botId}, ${users.toString()}`)
