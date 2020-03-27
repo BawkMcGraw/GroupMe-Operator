@@ -6,6 +6,9 @@ const atex2 = /@all/i;
 var users = ["33073287", "26997134", "29962743", "31154730", "48138508"];
 
 class Functions {
+    static load() {
+        users = ["33073287", "26997134", "29962743", "31154730", "48138508"];
+    }
 
 }
 class Bot {
@@ -52,13 +55,14 @@ class Bot {
 
         //BUILDS INFORMATION SENT TO GROUPME
         const body = {
-            bot_id: "a77921fc68936cf5c8fa6e58a3",
-            text: "test",
+            bot_id: botId,
+            text: "Connecting your call",
             attachments: [{
                 type: "mentions",
                 user_ids: [users.toString()]
             }]
         };
+        console.log(`${botId}, ${users.toString()}`)
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {

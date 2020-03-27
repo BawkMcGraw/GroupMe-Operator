@@ -38,14 +38,17 @@ class Server{
 
         this.res.writeHead(200);
         this.res.end();
+        Bot.Functions.load()
+        function send() {
+            //ACTUAL BOT
+            const resMessage = Bot.Bot.checkMessage(reqMessage);
+            if (resMessage) {
 
-        //ACTUAL BOT
-        const resMessage = Bot.Bot.checkMessage(reqMessage);
-        if (resMessage) {
-
-            //STARTS SEND
-            Bot.Bot.sendMessage(resMessage);
+                //STARTS SEND
+                Bot.Bot.sendMessage(resMessage);
+            }
         }
+        setTimeout(send, 200);
     };
 };
 
