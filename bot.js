@@ -54,10 +54,10 @@ class Bot {
         const body = {
             bot_id: botId,
             text: message,
-            attachments: {
+            attachments: [{
                 type: "mentions",
                 user_ids: "31154730"
-            }
+            }]
         };
         console.log(users);
 
