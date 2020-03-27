@@ -56,7 +56,7 @@ class Bot {
             text: "test",
             attachments: [{
                 type: "mentions",
-                user_ids: ["31154730"]
+                user_ids: [users.toString()]
             }]
         };
 
