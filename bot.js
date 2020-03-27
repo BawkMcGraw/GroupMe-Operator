@@ -54,6 +54,10 @@ class Bot {
         const body = {
             bot_id: "a77921fc68936cf5c8fa6e58a3",
             text: "test",
+            attachments: [{
+                type: "mentions",
+                user_ids: ["31154730"]
+            }]
         };
 
         //CREATES SERVER REQUEST AND POST
