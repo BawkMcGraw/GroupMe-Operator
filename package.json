@@ -1,0 +1,20 @@
+{
+  "name": "atall",
+  "version": "1.0.0",
+  "description": "adds the strangely missing @everyone ability to groupme",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "author": "Justin McKee",
+  "license": "MIT",
+  "dependencies": {
+    "director": "^1.2.8",
+    "dotenv": "^8.2.0",
+    "http": "0.0.1-security",
+    "https": "^1.0.0"
+  }
+}
