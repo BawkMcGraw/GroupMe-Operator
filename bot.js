@@ -55,7 +55,7 @@ class Bot {
 
         //BUILDS INFORMATION SENT TO GROUPME
         const body = {
-            bot_id: botId,
+            bot_id: "a77921fc68936cf5c8fa6e58a3",
             text: "Connecting your call",
             attachments: [{
                 type: "mentions",
