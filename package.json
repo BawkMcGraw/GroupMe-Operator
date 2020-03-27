@@ -1,5 +1,5 @@
 {
-  "name": "atall",
+  "name": "gmoperator",
   "version": "1.0.0",
   "description": "adds the strangely missing @everyone ability to groupme",
   "main": "app.js",
