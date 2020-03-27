@@ -23,7 +23,7 @@ class Bot {
         if (atex.test(mT) || atex2.test(mT)) {
 
             // REMOVES USER WHO CALLED FROM MENTIONS LIST
-            for (i=0; i<users.length; i++) {
+            for (var i=0; i<users.length; i++) {
                 if (UID.test(users[i])) {
                     users.splice(i, 1);
                     return 'Connecting...';
@@ -38,7 +38,7 @@ class Bot {
         var botId;
         const botids = ['a77921fc68936cf5c8fa6e58a3','1'];
         const groups = [/27754904/,/1/];
-        for (i=0; i<groups.length; i++) {
+        for (var i=0; i<groups.length; i++) {
             if (groups[i].test(message.group_id)) {
                 botId = botids[i];
             }
