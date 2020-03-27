@@ -54,11 +54,12 @@ class Bot {
         const body = {
             bot_id: botId,
             text: message,
-            attachments: {
+            attachments: [{
                 type: "mentions",
                 user_ids: users
-            }
+            }]
         };
+        console.log(users);
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {
