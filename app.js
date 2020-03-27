@@ -19,7 +19,7 @@ class Server{
             });
         });
 
-        this.port = Number(process.env.port || 3000);
+        this.port = Number(process.env.PORT || 3000);
     };
 
     //BUILDS SERVER PORT THAT LISTENS FOR GROUPME CALLS
