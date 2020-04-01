@@ -18,7 +18,7 @@ class Functions {
 
         const options = {
             hostname: 'api.groupme.com',
-            path: `/v3/groups/${groupId}?=${token}`,
+            path: `/v3/groups/27754904?token=1ORpkfDb3hxCwKV5BbxAwmcfAKlczY1Q7nRARwRr`,
             method: 'GET'
         };
 
