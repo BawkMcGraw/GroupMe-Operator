@@ -25,7 +25,7 @@ class Functions {
             });
             res.on('end', () => {
                 var raw = JSON.parse(data);
-                console.log('response '+JSON.stringify(raw.response.members));
+                console.log('response '+JSON.stringify(raw.response.members[0].user_id));
             });
         }).on('error', (err) => {
             console.log(`error: ${err.message}`);
