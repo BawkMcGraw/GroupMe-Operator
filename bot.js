@@ -21,6 +21,7 @@ class Functions {
             method: 'GET'
         };
         const botReq = https.request(options, function(res) {
+            console.log(`res ${res}`)
             res.chunks = [];
             res.on('data', function(chunk) {
                 res.chunks.push(chunk.toString());
