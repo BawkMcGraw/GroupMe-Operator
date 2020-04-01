@@ -23,7 +23,7 @@ class Functions {
             res.on('data', (chunk) => {
                 data += chunk;
             });
-            res.end('end', () => {
+            res.on('end', () => {
                 console.log(JSON.parse(data).explanation);
             });
         }).on('error', (err) => {
