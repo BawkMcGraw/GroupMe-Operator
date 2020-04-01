@@ -23,12 +23,7 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-            var chunks = [];
-            chunks.push(res.toString());
-            if (chunks[0]) {
-                mes = JSON.parse(chunks[0]);
-            }
-            console.log(`mes ${mes}`);
+            console.log(`res ${res.response.members[0].user_id}`)
         });
         botReq.end();
     }
