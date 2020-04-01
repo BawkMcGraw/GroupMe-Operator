@@ -31,6 +31,31 @@ class Functions {
             console.log(`error: ${err.message}`);
         })
     }
+    static CallerID() {
+        var GIDex = new RegExp(groupId);
+
+        // RETRIEVES GROUPIDS AND BOTIDS FROM HEROKU
+        var RawGroups = Object.keys(process.env).filter(key => /GROUPID/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+        var RawIds = Object.keys(process.env).filter(key => /BOTID/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+
+        // SORTS GROUPIDS AND BOTIDS FOR MATCHING
+        var SortedGroups = {};
+        Object.keys(RawGroups).sort().forEach(function(key) {SortedGroups[key] = RawGroups[key];});
+        var SortedIds = {};
+        Object.keys(RawIds).sort().forEach(function(key) {SortedIds[key] = RawIds[key];});
+
+        // FILTERS DOWN TO VALUES FOR PAIRING
+        var groups = Object.values(SortedGroups);
+        var ids = Object.values(SortedIds);
+
+        // DETERMINES WHICH GROUP IS CALLING
+        for (var i=0; i<groups.length; i++) {
+            if (GIDex.test(groups[i])) {
+                // SETS BOTID TO CORRESPONDING GROUP CALL
+                botId = ids[i];
+            }
+        }
+    }
 }
 
 class Bot {
@@ -58,26 +83,8 @@ class Bot {
     }
     // COMPOSES AND SENDS MESSAGE
     static sendMessage(message) {
-        var GIDex = new RegExp(groupId);
-        var Groups = Object.keys(process.env).filter(key => /GROUP/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
-        console.log(`groups ${JSON.stringify(Groups)}`);
-        var Ids = Object.keys(process.env).filter(key => /ID/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
-        console.log(`ids ${JSON.stringify(Ids)}`);
-        var SortedGroups = {};
-        Object.keys(Groups).sort().forEach(function(key) {SortedGroups[key] = Groups[key];});
-        console.log(`SortedGroups ${SortedGroups}`);
-        var SortedIds = {};
-        Object.keys(Ids).sort().forEach(function(key) {SortedIds[key] = Ids[key];});
-        console.log(`SortedIds ${SortedIds}`);
-
-        for (var i=0; i<SortedGroups.length; i++) {
-            if (GIDex.test(SortedGroups[i])) {
-                botId = SortedIds[i];
-            }
-        }
-
-        // DETERMINES WHICH BOTID BASED ON GROUP
-
+        Functions.CallerID();
+        
         // BUILDS REQUEST
         const options = {
             hostname: 'api.groupme.com',
