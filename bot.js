@@ -1,5 +1,3 @@
-import * as util from 'util';
-import { inspect } from 'util';
 var util = require('util');
 const https = require('https');
 const nameex = /Operator/;
