@@ -32,11 +32,6 @@ class Functions {
             mes = JSON.parse(chunks[0]);
         });
         botReq.end();
-        console.log(`mes.members ${JSON.parse(mes.members)}`)
-        for (var i=0; i<mes.members.length; i++) {
-            users.push(mes.members[i].user_id);
-        }
-        console.log(`users ${users}`)
     }
 }
 
