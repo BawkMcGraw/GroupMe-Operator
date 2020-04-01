@@ -10,11 +10,11 @@ var botId, groupId, token;
 class Functions {
     // GETS USER IDS FROM GROUP
     static load(GID) {
-        console.log('starting load');
+      console.log('starting load');
         botId = process.env.ID.toString();
         groupId = GID;
         token = process.env.TOKEN.toString();
-        console.log(`botId ${botId} groupid ${groupId} token ${token}`);
+      console.log(`botId ${botId} groupid ${groupId} token ${token}`);
         const options = {
             hostname: 'api.groupme.com',
             path: `/v3/groups/${groupId}?=${token}`,
@@ -25,21 +25,15 @@ class Functions {
             res.on('data', function(chunk) {
                 res.chunks.push(chunk.toString());
             });
-            console.log(`res.chunks ${res.chunks}`);
+          console.log(`res.chunks ${res.chunks}`);
             var resM = JSON.parse(this.res.chunks[0]);
             if (resM.members[0].user_id) {
                 for (var i=0; i<resM.members.length; i++) {
                     users.push(resM.members[i].user_id);
+                    console.log(`resM.members[${i}].user_id ${resM.members[i].user_id}`);
+                    console.log(`users[${i}] ${users[i]}`);
                 }
             }
-        });
-
-        botReq.on('error', function(err) {
-            console.log(`Error: ${JSON.stringify(err)}`);
-        });
-
-        botReq.on('timeout', function(err) {
-            console.log(`Timeout: ${JSON.stringify(err)}`);
         });
         botReq.end();
     }
