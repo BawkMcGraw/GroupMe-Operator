@@ -3,14 +3,48 @@ const nameex = /Operator/;
 const atex = /@everyone/i;
 const atex2 = /@all/i;
 // USER IDS FROM EVERYONE IN GROUP
-var users = ["33073287", "26997134", "29962743", "31154730", "48138508"];
+const users = [];
+var mentions = [];
+var botId, groupId, token;
 
 class Functions {
-    static load() {
-        users = ["33073287", "26997134", "29962743", "31154730", "48138508"];
-    }
+    // GETS USER IDS FROM GROUP
+    static load(GID) {
+        console.log('starting load');
+        botId = process.env.ID.toString();
+        groupId = GID;
+        token = process.env.TOKEN.toString();
+        console.log(`botId ${botId} groupid ${groupId} token ${token}`);
+        const options = {
+            hostname: 'api.groupme.com',
+            path: `/v3/groups/${groupId}?=${token}`,
+            method: 'GET'
+        };
+        const botReq = https.request(options, function(res) {
+            res.chunks = [];
+            res.on('data', function(chunk) {
+                res.chunks.push(chunk.toString());
+            });
+            console.log(`res.chunks ${res.chunks}`);
+            var resM = JSON.parse(this.res.chunks[0]);
+            if (resM.members[0].user_id) {
+                for (var i=0; i<resM.members.length; i++) {
+                    users.push(resM.members[i].user_id);
+                }
+            }
+        });
 
+        botReq.on('error', function(err) {
+            console.log(`Error: ${JSON.stringify(err)}`);
+        });
+
+        botReq.on('timeout', function(err) {
+            console.log(`Timeout: ${JSON.stringify(err)}`);
+        });
+        botReq.end();
+    }
 }
+
 class Bot {
 
     // CHECKS MESSAGE FOR @EVERYONE OR @ALL
@@ -26,9 +60,10 @@ class Bot {
         if (atex.test(mT) || atex2.test(mT)) {
 
             // REMOVES USER WHO CALLED FROM MENTIONS LIST
-            for (var i=0; i<users.length; i++) {
-                if (UID.test(users[i])) {
-                    users.splice(i, 1);
+            mentions = users;
+            for (var i=0; i<mentions.length; i++) {
+                if (UID.test(mentions[i])) {
+                    mentions.splice(i, 1);
                     return 'Connecting...';
                 }
             }
@@ -36,16 +71,6 @@ class Bot {
     }
     // COMPOSES AND SENDS MESSAGE
     static sendMessage(message) {
-
-        // DETERMINES BOTID FOR GROUP THAT CALLED
-        var botId;
-        const botids = ['a77921fc68936cf5c8fa6e58a3','1'];
-        const groups = [/27754904/,/1/];
-        for (var i=0; i<groups.length; i++) {
-            if (groups[i].test(message.group_id)) {
-                botId = botids[i];
-            }
-        }
 
         const options = {
             hostname: 'api.groupme.com',
@@ -55,14 +80,14 @@ class Bot {
 
         //BUILDS INFORMATION SENT TO GROUPME
         const body = {
-            bot_id: "a77921fc68936cf5c8fa6e58a3",
+            bot_id: botId,
             text: "Connecting your call",
             attachments: [{
                 type: "mentions",
-                user_ids: ["33073287","26997134","29962743","31154730","48138508"]
+                user_ids: [mentions]
             }]
         };
-        console.log(`${botId}, ${users.toString()}`)
+        console.log(`${botId}, ${mentions.toString()}`)
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {

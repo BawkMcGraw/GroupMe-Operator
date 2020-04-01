@@ -38,7 +38,7 @@ class Server{
 
         this.res.writeHead(200);
         this.res.end();
-        Bot.Functions.load()
+        Bot.Functions.load(reqMessage.group_id);
         function send() {
             //ACTUAL BOT
             const resMessage = Bot.Bot.checkMessage(reqMessage);
