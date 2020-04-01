@@ -5,7 +5,7 @@ const atex = /@everyone/i;
 const atex2 = /@all/i;
 // USER IDS FROM EVERYONE IN GROUP
 var users = [];
-var botId, groupId, token, mes;
+var botId, groupId, token;
 
 class Functions {
     // GETS USER IDS FROM GROUP
