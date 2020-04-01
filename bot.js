@@ -4,13 +4,13 @@ const nameex = /Operator/;
 const atex = /@everyone/i;
 const atex2 = /@all/i;
 // USER IDS FROM EVERYONE IN GROUP
-const users = [];
-var mentions = [];
+var users = [];
 var botId, groupId, token, mes;
 
 class Functions {
     // GETS USER IDS FROM GROUP
     static load(GID) {
+        users = [];
       console.log('starting load');
         botId = process.env.ID.toString();
         groupId = GID;
@@ -25,7 +25,9 @@ class Functions {
             });
             res.on('end', () => {
                 var raw = JSON.parse(data);
-                console.log('response '+JSON.stringify(raw.response.members[0].user_id));
+                for (var i=0; i<raw.response.members.length; i++) {
+                    users.push(JSON.stringify(raw.response.members[i].user_id));
+                }
             });
         }).on('error', (err) => {
             console.log(`error: ${err.message}`);
@@ -48,11 +50,10 @@ class Bot {
         if (atex.test(mT) || atex2.test(mT)) {
 
             // REMOVES USER WHO CALLED FROM MENTIONS LIST
-            mentions = users;
-            for (var i=0; i<mentions.length; i++) {
-                if (UID.test(mentions[i])) {
-                    mentions.splice(i, 1);
-                    return 'Connecting...';
+            for (var i=0; i<users.length; i++) {
+                if (UID.test(users[i])) {
+                    users.splice(i, 1);
+                    return 'Connecting your call!';
                 }
             }
         }
@@ -69,13 +70,13 @@ class Bot {
         //BUILDS INFORMATION SENT TO GROUPME
         const body = {
             bot_id: botId,
-            text: "Connecting your call",
+            text: message,
             attachments: [{
                 type: "mentions",
-                user_ids: [mentions]
+                user_ids: [users]
             }]
         };
-        console.log(`botid ${botId}, mentions ${mentions.toString()}`)
+        console.log(`botid ${botId}, mentions ${users.toString()}`)
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {
