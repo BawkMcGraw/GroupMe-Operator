@@ -23,7 +23,6 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-          console.log(`res ${JSON.parse(res)}`);
         });
         botReq.on('data', function(res) {
             console.log(`data ${res}`);
