@@ -25,12 +25,7 @@ class Functions {
             });
             res.on('end', () => {
                 var raw = JSON.parse(data);
-                if (raw.response.members) {
-                    console.log('response '+raw.response.members);
-                }
-                if (raw.members) {
-                    console.log('no response '+raw.members);
-                }
+                console.log('response '+JSON.stringify(raw.response.members));
             });
         }).on('error', (err) => {
             console.log(`error: ${err.message}`);
