@@ -81,7 +81,7 @@ class Bot {
                 user_ids: [mentions]
             }]
         };
-        console.log(`${botId}, ${mentions.toString()}`)
+        console.log(`botid ${botId}, mentions ${mentions.toString()}`)
 
         //CREATES SERVER REQUEST AND POST
         const botReq = https.request(options, function(res) {
