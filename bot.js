@@ -23,7 +23,7 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-            console.log(`res ${res.response.members[0].user_id}`)
+            console.log(`res ${res.members[0].user_id}`)
         });
         botReq.end();
     }
