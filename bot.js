@@ -23,7 +23,7 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-            console.log(`res ${JSON.stringify(res)}`)
+            console.log(`res ${res.toString()}`)
         });
         botReq.end();
     }
