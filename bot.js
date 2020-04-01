@@ -11,12 +11,10 @@ class Functions {
     // GETS USER IDS FROM GROUP
     static load(GID) {
         users = [];
-      console.log('starting load');
-        botId = process.env.ID.toString();
         groupId = GID;
         token = process.env.TOKEN.toString();
-      console.log(`botId ${botId} groupid ${groupId} token ${token}`);
 
+        // PULLS USER LIST FROM GROUPME
         https.get(`https://api.groupme.com/v3/groups/${groupId}?token=${token}`, (res) => {
             let data = '';
 
@@ -60,14 +58,32 @@ class Bot {
     }
     // COMPOSES AND SENDS MESSAGE
     static sendMessage(message) {
+        var GIDex = new RegExp(groupId);
+        var Groups = Object.keys(process.env).filter(key => /group/i.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+        console.log(`groups ${Groups}`);
+        var Ids = Object.keys(process.env).filter(key => /id/i.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+        console.log(`ids ${Ids}`);
+        var SortedGroups = Object.keys(Groups).sort().forEach(function(key) {SortedGroups[key] = Groups[key];});
+        console.log(`SortedGroups ${SortedGroups}`);
+        var SortedIds = Object.keys(Ids).sort().forEach(function(key) {SortedIds[key] = Ids[key];});
+        console.log(`SortedIds ${SortedIds}`);
 
+        for (var i=0; i<SortedGroups.length; i++) {
+            if (GIDex.test(SortedGroups[i])) {
+                botId = SortedIds[i];
+            }
+        }
+
+        // DETERMINES WHICH BOTID BASED ON GROUP
+
+        // BUILDS REQUEST
         const options = {
             hostname: 'api.groupme.com',
             path: '/v3/bots/post',
             method: 'POST'
         };
 
-        //BUILDS INFORMATION SENT TO GROUPME
+        // BUILDS INFORMATION SENT TO GROUPME
         const body = {
             bot_id: botId,
             text: message,
@@ -78,7 +94,7 @@ class Bot {
         };
         console.log(`botid ${botId}, mentions ${users.toString()}`)
 
-        //CREATES SERVER REQUEST AND POST
+        // CREATES SERVER REQUEST AND POSTS
         const botReq = https.request(options, function(res) {
             if (res.statusCode !== 202) {
                 console.log(`Error: ${res.statusCode} ${res.statusMessage}`);
