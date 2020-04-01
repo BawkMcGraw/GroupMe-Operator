@@ -5,7 +5,7 @@ const atex2 = /@all/i;
 // USER IDS FROM EVERYONE IN GROUP
 const users = [];
 var mentions = [];
-var botId, groupId, token;
+var botId, groupId, token, mes;
 
 class Functions {
     // GETS USER IDS FROM GROUP
@@ -15,28 +15,28 @@ class Functions {
         groupId = GID;
         token = process.env.TOKEN.toString();
       console.log(`botId ${botId} groupid ${groupId} token ${token}`);
+
         const options = {
             hostname: 'api.groupme.com',
             path: `/v3/groups/${groupId}?=${token}`,
             method: 'GET'
         };
+
         const botReq = https.request(options, function(res) {
-            console.log(`res ${res}`)
-            res.chunks = [];
-            res.on('data', function(chunk) {
-                res.chunks.push(chunk.toString());
-            });
-          console.log(`res.chunks ${res.chunks}`);
-            var resM = JSON.parse(this.res.chunks[0]);
-            if (resM.members[0].user_id) {
-                for (var i=0; i<resM.members.length; i++) {
-                    users.push(resM.members[i].user_id);
-                    console.log(`resM.members[${i}].user_id ${resM.members[i].user_id}`);
-                    console.log(`users[${i}] ${users[i]}`);
-                }
-            }
+          console.log(`res ${JSON.parse(res)}`);
+        });
+        botReq.on('data', function(res) {
+            console.log(`data ${res}`);
+            var chunks = [];
+            chunks.push(res.toString());
+            mes = JSON.parse(chunks[0]);
         });
         botReq.end();
+        console.log(`mes.members ${JSON.parse(mes.members)}`)
+        for (var i=0; i<mes.members.length; i++) {
+            users.push(mes.members[i].user_id);
+        }
+        console.log(`users ${users}`)
     }
 }
 
