@@ -23,12 +23,10 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-        });
-        botReq.on('data', function(res) {
-            console.log(`data ${res}`);
             var chunks = [];
             chunks.push(res.toString());
-            mes = JSON.parse(chunks[0]);
+            mes.JSON.parse(chunks[0]);
+            console.log(`mes ${mes}`);
         });
         botReq.end();
     }
