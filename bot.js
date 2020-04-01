@@ -24,7 +24,7 @@ class Functions {
                 data += chunk;
             });
             res.on('end', () => {
-                console.log(JSON.parse(data).explanation);
+                console.log(JSON.parse(data));
             });
         }).on('error', (err) => {
             console.log(`error: ${err.message}`);
