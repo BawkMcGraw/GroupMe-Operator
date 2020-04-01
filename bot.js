@@ -1,3 +1,6 @@
+import * as util from 'util';
+import { inspect } from 'util';
+var util = require('util');
 const https = require('https');
 const nameex = /Operator/;
 const atex = /@everyone/i;
@@ -23,7 +26,7 @@ class Functions {
         };
 
         const botReq = https.request(options, function(res) {
-            console.log(`res ${res.toString()}`)
+            console.log(`res ${util.inspect(res)}`);
         });
         botReq.end();
     }
