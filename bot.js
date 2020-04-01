@@ -17,16 +17,18 @@ class Functions {
         token = process.env.TOKEN.toString();
       console.log(`botId ${botId} groupid ${groupId} token ${token}`);
 
-        const options = {
-            hostname: 'api.groupme.com',
-            path: `/v3/groups/27754904?token=1ORpkfDb3hxCwKV5BbxAwmcfAKlczY1Q7nRARwRr`,
-            method: 'GET'
-        };
+        https.get(`https://api.groupme.com/v3/groups/${groupId}?token=${token}`, (res) => {
+            let data = '';
 
-        const botReq = https.request(options, function(res) {
-            console.log(`res ${util.inspect(res)}`);
-        });
-        botReq.end();
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+            res.end('end', () => {
+                console.log(JSON.parse(data).explanation);
+            });
+        }).on('error', (err) => {
+            console.log(`error: ${err.message}`);
+        })
     }
 }
 
