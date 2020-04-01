@@ -59,9 +59,9 @@ class Bot {
     // COMPOSES AND SENDS MESSAGE
     static sendMessage(message) {
         var GIDex = new RegExp(groupId);
-        var Groups = Object.keys(process.env).filter(key => /group/i.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+        var Groups = Object.keys(process.env).filter(key => /GROUP/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
         console.log(`groups ${JSON.stringify(Groups)}`);
-        var Ids = Object.keys(process.env).filter(key => /id/i.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
+        var Ids = Object.keys(process.env).filter(key => /ID/.test(key)).reduce((obj, key) => {obj[key] = process.env[key]; return obj;}, {});
         console.log(`ids ${JSON.stringify(Ids)}`);
         var SortedGroups = {};
         Object.keys(Groups).sort().forEach(function(key) {SortedGroups[key] = Groups[key];});
