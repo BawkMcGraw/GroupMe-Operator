@@ -11,6 +11,7 @@ class Functions {
     // GETS USER IDS FROM GROUP
     static load(GID) {
         users = [];
+        console.log(`users empty ${users}`);
         groupId = GID;
         token = process.env.TOKEN.toString();
 
@@ -25,6 +26,7 @@ class Functions {
                 var raw = JSON.parse(data);
                 for (var i=0; i<raw.response.members.length; i++) {
                     users.push(JSON.stringify(raw.response.members[i].user_id));
+                    console.log(`users update ${i}: ${users}`);
                 }
             });
         }).on('error', (err) => {
@@ -76,9 +78,11 @@ class Bot {
             for (var i=0; i<users.length; i++) {
                 if (UID.test(users[i])) {
                     users.splice(i, 1);
+                    console.log(`spliced users ${users}`);
                     return 'Connecting your call!';
                 }
             }
+            return `Commander... Commander... Commander... Commander, I think you'll wanna hear this. *Static Noises*`;
         }
     }
     // COMPOSES AND SENDS MESSAGE
@@ -101,6 +105,7 @@ class Bot {
                 user_ids: [users]
             }]
         };
+        console.log(`reported users ${users}`);
 
         // CREATES SERVER REQUEST AND POSTS
         const botReq = https.request(options, function(res) {
