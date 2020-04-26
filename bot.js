@@ -97,6 +97,7 @@ class Bot {
         };
         var stringUsers = users.toString();
         console.log(stringUsers);
+        var teststring = "48138508";
 
         // BUILDS INFORMATION SENT TO GROUPME
         const body = {
@@ -104,7 +105,7 @@ class Bot {
             text: message,
             attachments: [{
                 type: "mentions",
-                user_ids: ["48138508"]
+                user_ids: [teststring]
             }]
         };
         console.log(`reported users ${users.toString()}`);
