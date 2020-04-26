@@ -106,7 +106,8 @@ class Bot {
                 user_ids: [users]
             }]
         };
-        console.log(`reported users ${body.attachments.user_ids}`);
+        console.log(`reported users ${users}`);
+        console.log(JSON.stringify(body));
 
         // CREATES SERVER REQUEST AND POSTS
         const botReq = https.request(options, function(res) {
