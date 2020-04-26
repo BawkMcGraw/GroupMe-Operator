@@ -101,12 +101,11 @@ class Bot {
             bot_id: botId,
             text: message,
             attachments: [{
-                loci: [[0,9]],
                 type: "mentions",
                 user_ids: [users]
             }]
         };
-        console.log(`reported users ${users}`);
+        console.log(`reported users ${users.toString()}`);
         console.log(JSON.stringify(body));
 
         // CREATES SERVER REQUEST AND POSTS
