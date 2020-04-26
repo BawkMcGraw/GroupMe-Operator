@@ -11,7 +11,6 @@ class Functions {
     // GETS USER IDS FROM GROUP
     static load(GID) {
         users = [];
-        console.log(`users empty ${users}`);
         groupId = GID;
         token = process.env.TOKEN.toString();
 
@@ -25,8 +24,7 @@ class Functions {
             res.on('end', () => {
                 var raw = JSON.parse(data);
                 for (var i=0; i<raw.response.members.length; i++) {
-                    users.push(JSON.parse(raw.response.members[i].user_id).toString());
-                    console.log(`users update ${i}: ${JSON.stringify(users)}`);
+                    users.push(JSON.parse(raw.response.members[i].user_id));
                 }
             });
         }).on('error', (err) => {
