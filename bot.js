@@ -25,7 +25,7 @@ class Functions {
             res.on('end', () => {
                 var raw = JSON.parse(data);
                 for (var i=0; i<raw.response.members.length; i++) {
-                    users.push(JSON.parse(raw.response.members[i].user_id));
+                    users.push(JSON.parse(raw.response.members[i].user_id).toString());
                     console.log(`users update ${i}: ${JSON.stringify(users)}`);
                 }
             });
