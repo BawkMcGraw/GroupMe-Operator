@@ -101,11 +101,12 @@ class Bot {
             bot_id: botId,
             text: message,
             attachments: [{
+                loci: [[0,9]],
                 type: "mentions",
                 user_ids: [users]
             }]
         };
-        console.log(`reported users ${users}`);
+        console.log(`reported users ${body.attachments.user_ids}`);
 
         // CREATES SERVER REQUEST AND POSTS
         const botReq = https.request(options, function(res) {
