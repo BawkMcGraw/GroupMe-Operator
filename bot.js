@@ -97,7 +97,7 @@ class Bot {
         };
         var stringUsers = users.toString();
         console.log(stringUsers);
-        var teststring = "48138508, 31154730";
+        var teststring = ["48138508", "31154730"];
 
         // BUILDS INFORMATION SENT TO GROUPME
         const body = {
