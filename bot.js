@@ -105,7 +105,7 @@ class Bot {
             text: message,
             attachments: [{
                 type: "mentions",
-                user_ids: [teststring]
+                user_ids: teststring
             }]
         };
         console.log(`reported users ${users.toString()}`);
