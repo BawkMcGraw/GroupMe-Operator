@@ -26,7 +26,7 @@ class Functions {
                 var raw = JSON.parse(data);
                 for (var i=0; i<raw.response.members.length; i++) {
                     users.push(JSON.stringify(raw.response.members[i].user_id));
-                    console.log(`users update ${i}: ${users}`);
+                    console.log(`users update ${i}: ${JSON.stringify(users)}`);
                 }
             });
         }).on('error', (err) => {
@@ -95,7 +95,6 @@ class Bot {
             path: '/v3/bots/post',
             method: 'POST'
         };
-        users.replace('/','');
 
         // BUILDS INFORMATION SENT TO GROUPME
         const body = {
@@ -106,8 +105,6 @@ class Bot {
                 user_ids: users
             }]
         };
-        console.log(`reported users ${JSON.stringify(users)}`);
-        console.log(JSON.stringify(body));
 
         // CREATES SERVER REQUEST AND POSTS
         const botReq = https.request(options, function(res) {
