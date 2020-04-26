@@ -95,6 +95,8 @@ class Bot {
             path: '/v3/bots/post',
             method: 'POST'
         };
+        var stringUsers = users.toString();
+        console.log(stringUsers);
 
         // BUILDS INFORMATION SENT TO GROUPME
         const body = {
@@ -102,7 +104,7 @@ class Bot {
             text: message,
             attachments: [{
                 type: "mentions",
-                user_ids: [users]
+                user_ids: [stringUsers]
             }]
         };
         console.log(`reported users ${users.toString()}`);
