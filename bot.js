@@ -95,9 +95,7 @@ class Bot {
             path: '/v3/bots/post',
             method: 'POST'
         };
-        var stringUsers = users.toString();
-        console.log(stringUsers);
-        var teststring = ["48138508", "31154730"];
+        users.replace('/','');
 
         // BUILDS INFORMATION SENT TO GROUPME
         const body = {
@@ -108,7 +106,7 @@ class Bot {
                 user_ids: users
             }]
         };
-        console.log(`reported users ${users.toString()}`);
+        console.log(`reported users ${JSON.stringify(users)}`);
         console.log(JSON.stringify(body));
 
         // CREATES SERVER REQUEST AND POSTS
